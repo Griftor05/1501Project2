@@ -1,0 +1,5 @@
+At this point, I still have to do the last five functions, and test. I'm, like, pretty sure it all works, though
+    since I haven't been testing, I can say in the very, very general case, and with a very high degree of certainty
+    that there is no way in hell that it works, and in fact I'm going to hell for my sins.
+
+    Thank you, Goodnight
