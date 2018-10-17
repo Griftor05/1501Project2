@@ -1,12 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
-<<<<<<< HEAD
 // Note: This class does not guarantee that it will be iterated through in the order it was added
 // After a deletion, a portion of the table will be rehashed, and sent to the bottom of the underlying Linked List
 
-=======
->>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
 public class PHPArray<V> implements Iterable<V> {
     // Use Nodes for the internal representation
     // Maps a String to a V
@@ -301,9 +299,22 @@ public class PHPArray<V> implements Iterable<V> {
 
     }
 
+    // Gonna pull all of the objects out and sort the list
     public void sort(){
+        Pair save = eachpair;
+        eachpair = head;
+        ArrayList<V> thepairs = new ArrayList<V>();
+
+        while(eachpair != null){
+            thepairs.add((V)eachpair.getvalue());
+        }
+
+        Class<V> type;
+        Class<Comparable> ctype;
+
+        if(ctype.isInstance(type)){
+
+        }
 
     }
-=======
->>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
 }
