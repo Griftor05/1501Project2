@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
+<<<<<<< HEAD
+// Note: This class does not guarantee that it will be iterated through in the order it was added
+// After a deletion, a portion of the table will be rehashed, and sent to the bottom of the underlying Linked List
+
+=======
+>>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
 public class PHPArray<V> implements Iterable<V> {
     // Use Nodes for the internal representation
     // Maps a String to a V
@@ -30,6 +36,28 @@ public class PHPArray<V> implements Iterable<V> {
         }
 
         private void decomission(){inuse = false;}
+<<<<<<< HEAD
+
+        // Allows the node to just slip out of the array, closing the hole behind it
+        private void dropfromLL(){
+            if(prev != null && next != null){
+                // Closes the hole
+                prev.next = next;
+                next.prev = prev;
+            }
+            else if(prev != null){
+                // Deals with the tail
+                prev.next = null;
+            }
+            else if(next != null){
+                // Deals with the head
+                next.prev = null;
+            }
+            // Otherwise, there's nothing to be done
+        }
+
+=======
+>>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
         private boolean isInuse() {return inuse;}
 
         public String getKey() {return key;}
@@ -218,4 +246,64 @@ public class PHPArray<V> implements Iterable<V> {
             System.out.println(ln);
         }
     }
+<<<<<<< HEAD
+
+    // Returns a Pair, calls another method
+    public V get(int k){
+        return get(Integer.toString(k));
+    }
+
+    // Returns a Pair, looking for it from
+    public V get(String key){
+        int index = key.hashCode() % pairarray.length;
+        while(pairarray[index] != null){
+            Pair mypair = pairarray[index];
+            // Have to make sure it's the right node
+            if(mypair.getKey().equals(key) && mypair.isInuse()){
+                return (V)mypair.getvalue();
+            }
+            index ++;
+        }
+        // If it's not in there, just return null
+        return null;
+    }
+
+    // Just the wrapper for the int key
+    public void unset(Integer key){
+        unset(Integer.toString(key));
+    }
+
+    // Going to delete an element, so... hopefully it'll work
+    public void unset(String key){
+        // Just going to set it as not there inside the array, but gotta find it first
+        // Don't have to rehash all below elements because we leave the object there
+        int index = key.hashCode() % pairarray.length;
+        while(pairarray[index] != null){
+            Pair mypair = pairarray[index];
+
+            // If we found it, we kill it
+            if(mypair.getKey().equals(key) && mypair.isInuse()){
+                mypair.dropfromLL(); // Remove it from the Linked List (Steal Away)
+                mypair.decomission(); // Now it's dead
+                if(head == mypair){
+                    // have to move it down
+                    head = mypair.getNext();
+                }
+                if(bottom == mypair){
+                    // have to move it back up
+                    bottom = mypair.getPrev();
+                }
+
+                return;
+            }
+            index++;
+        }
+
+    }
+
+    public void sort(){
+
+    }
+=======
+>>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
 }
