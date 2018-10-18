@@ -107,6 +107,8 @@ public class PHPArray <V> implements Iterable <V> {
 
     // Used when the load factor gets too high. Transitions to a larger array.
     private void growAndRehashTable(){
+        System.out.println("Size: " + Integer.toString(items_in_list) + " -- resizing " +
+                "from " + Integer.toString(pairarray.length) + " to " + Integer.toString(pairarray.length * 2 + 1));
         Pair[] newpairarray = new PHPArray.Pair[pairarray.length * 2 + 1];
         // Need to rehash all the members of pairarray
         Pair myPair = head;
@@ -138,14 +140,13 @@ public class PHPArray <V> implements Iterable <V> {
     // Puts a value into the hashmap, using key as the key and datum as the... well
     public void put(String key, V datum){
         PHPArray.Pair myPair = new PHPArray.Pair(key, datum);
-        int index = key.hashCode() % pairarray.length;
+        int index = Math.abs(key.hashCode()) % pairarray.length;
 
         // First deal with plugging the new Pair into the linked list
         if(items_in_list == 0){
             head = myPair;
             bottom = myPair;
             eachpair = myPair;
-            theiterator.currPair = myPair;
             items_in_list ++;
         }
         else if(items_in_list == 1){
