@@ -5,12 +5,12 @@ import java.util.Iterator;
 // Note: This class does not guarantee that it will be iterated through in the order it was added
 // After a deletion, a portion of the table will be rehashed, and sent to the bottom of the underlying Linked List
 
-public class PHPArray<V> implements Iterable<V> {
+public class PHPArray <V> implements Iterable {
     // Use Nodes for the internal representation
     // Maps a String to a V
 
     // Use for iterator, to hold the data
-    public static class Pair<V> {
+    public class Pair {
         public String key;
         public V value;
         private Pair prev = null;
@@ -34,7 +34,7 @@ public class PHPArray<V> implements Iterable<V> {
         }
 
         private void decomission(){inuse = false;}
-<<<<<<< HEAD
+
 
         // Allows the node to just slip out of the array, closing the hole behind it
         private void dropfromLL(){
@@ -54,15 +54,13 @@ public class PHPArray<V> implements Iterable<V> {
             // Otherwise, there's nothing to be done
         }
 
-=======
->>>>>>> d7baa2d96dccbd3e612627f871685b6652f423c4
         private boolean isInuse() {return inuse;}
 
         public String getKey() {return key;}
         public V getvalue() {return value;}
     }
 
-    // Creating my own iterator
+    // Creating my own iterator?
     public class PHPArrayIterator implements Iterator {
         private PHPArray.Pair currPair;
 
@@ -126,6 +124,11 @@ public class PHPArray<V> implements Iterable<V> {
         put(Integer.toString(key), datum);
     }
 
+    // Puts a value into the array, using Pairs instead of actual data
+    private void put(Pair a){
+        put(a.getKey(), (V)a.getvalue());
+    }
+
     // Puts a value into the hashmap, using key as the key and datum as the... well
     public void put(String key, V datum){
         PHPArray.Pair myPair = new PHPArray.Pair(key, datum);
@@ -176,13 +179,22 @@ public class PHPArray<V> implements Iterable<V> {
         }
     }
 
-    // each will return each pair in the linked list, by order added, reset will send it back to the head
-    public Pair each(){
+    // Like each, but works for pairs
+    private Pair eachPair(){
         if(eachpair == null) return null;
         // Else
         Pair returner = eachpair;
         eachpair = eachpair.getNext();
         return returner;
+    }
+
+    // each will return each pair in the linked list, by order added, reset will send it back to the head
+    public V each(){
+        if(eachpair == null) return null;
+        // Else
+        Pair returner = eachpair;
+        eachpair = eachpair.getNext();
+        return (V)returner.getvalue();
     }
 
     // Resets the each() iterator to the head of the arraylist
@@ -197,7 +209,7 @@ public class PHPArray<V> implements Iterable<V> {
         reset();
         ArrayList<V> returner = new ArrayList<V>();
         Pair curr;
-        while((curr = each()) != null){
+        while((curr = eachPair()) != null){
             // Y'know, this is the first time casting has ever felt like a really bad idea to me
             // Ah well. It works now, at least.
             returner.add((V)curr.getvalue());
@@ -214,7 +226,7 @@ public class PHPArray<V> implements Iterable<V> {
         reset();
         ArrayList<String> returner = new ArrayList<String>();
         Pair curr;
-        while((curr = each()) != null){
+        while((curr = eachPair()) != null){
             returner.add(curr.getKey());
         }
         // Restore your each iterator, friend-o
@@ -244,14 +256,13 @@ public class PHPArray<V> implements Iterable<V> {
             System.out.println(ln);
         }
     }
-<<<<<<< HEAD
 
     // Returns a Pair, calls another method
     public V get(int k){
         return get(Integer.toString(k));
     }
 
-    // Returns a Pair, looking for it from
+    // Returns a Pair, looking for it inside the Array
     public V get(String key){
         int index = key.hashCode() % pairarray.length;
         while(pairarray[index] != null){
@@ -300,19 +311,33 @@ public class PHPArray<V> implements Iterable<V> {
     }
 
     // Gonna pull all of the objects out and sort the list
-    public <V extends Comparable<V>> void sort(){
+    // Creating a generic type that is also Comparable for... nefarious purposes
+    public <T extends Comparable> void sort(){
         Pair save = eachpair;
         eachpair = head;
         ArrayList<V> thepairs = new ArrayList<V>();
 
+        // Grabs all the nodes
         while(eachpair != null){
             thepairs.add((V)eachpair.getvalue());
         }
 
-        // Hopefully V is Comparable, and if it isn't... well.
-        Collections.sort(thepairs);
+        // This is the single worst line of code I've written in my life. I despise its existence.
+        Collections.sort((ArrayList<T>)thepairs);
 
+        // And now add all of them as new Pairs back into the array list, resetting it
+        head = null;
+        bottom = null;
+        pairarray = new PHPArray.Pair[pairarray.length];
+        int i = 0;
+        for(V thisT : thepairs){
+            put(i, thisT);
+        }
 
-
+        // Should be good!
+        // Had to reset it, sorry old list
+        eachpair = head;
     }
+
+
 }

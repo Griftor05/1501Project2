@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e18d751-e0f3-4a7a-b109-2a253427e6e5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/PHPArray.java" afterPath="$PROJECT_DIR$/src/PHPArray.java" />
+      <change beforePath="$PROJECT_DIR$/src/TestClass.java" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,25 +56,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PHPArray.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PHPArray.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PHPArray.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="311" column="55" lean-forward="false" selection-start-line="311" selection-start-column="55" selection-end-line="311" selection-end-column="55" />
+            <state relative-caret-position="525">
+              <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="class#PHPArrayIterator#0;class#PHPArray#0" expanded="false" />
-                <element signature="method#growAndRehashTable#0;class#PHPArray#0" expanded="false" />
+                <element signature="e#2884#2885#0" expanded="true" />
+                <element signature="e#2954#2955#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
+                <element signature="e#3050#3051#0" expanded="true" />
+                <element signature="e#3914#3915#0" expanded="true" />
+                <element signature="e#3963#3964#0" expanded="true" />
+                <element signature="e#4065#4066#0" expanded="true" />
+                <element signature="e#4113#4114#0" expanded="true" />
+                <element signature="e#6426#6427#0" expanded="true" />
+                <element signature="e#6457#6458#0" expanded="true" />
+                <element signature="e#7645#7646#0" expanded="true" />
+                <element signature="e#7681#7682#0" expanded="true" />
+                <element signature="e#8350#8351#0" expanded="true" />
+                <element signature="e#8397#8398#0" expanded="true" />
+                <element signature="e#8986#8987#0" expanded="true" />
+                <element signature="e#9030#9031#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Assig2.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Assig2.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Assig2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4100">
-              <caret line="164" column="51" lean-forward="false" selection-start-line="164" selection-start-column="51" selection-end-line="164" selection-end-column="51" />
+            <state relative-caret-position="275">
+              <caret line="62" column="36" lean-forward="true" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -104,11 +120,15 @@
       <find>showData</find>
       <find>length</find>
       <find>sort</find>
+      <find>V</find>
+      <find>each</find>
+      <find>Object</find>
     </findStrings>
     <replaceStrings>
       <replace>Pair</replace>
       <replace>pairarray</replace>
       <replace>value</replace>
+      <replace>T</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -136,7 +156,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-207" />
     <option name="y" value="88" />
     <option name="width" value="1936" />
@@ -304,16 +324,15 @@
       <workItem from="1539726905359" duration="11527000" />
       <workItem from="1539796473028" duration="84000" />
       <workItem from="1539806068506" duration="8477000" />
-      <workItem from="1539819183876" duration="1760000" />
+      <workItem from="1539819183876" duration="10235000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21848000" />
+    <option name="totallyTimeSpent" value="30323000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
-    <editor active="true" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -361,8 +380,22 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#PHPArrayIterator#0;class#PHPArray#0" expanded="false" />
-            <element signature="method#growAndRehashTable#0;class#PHPArray#0" expanded="false" />
+            <element signature="e#2884#2885#0" expanded="true" />
+            <element signature="e#2954#2955#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3050#3051#0" expanded="true" />
+            <element signature="e#3914#3915#0" expanded="true" />
+            <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4065#4066#0" expanded="true" />
+            <element signature="e#4113#4114#0" expanded="true" />
+            <element signature="e#6426#6427#0" expanded="true" />
+            <element signature="e#6457#6458#0" expanded="true" />
+            <element signature="e#7645#7646#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#8350#8351#0" expanded="true" />
+            <element signature="e#8397#8398#0" expanded="true" />
+            <element signature="e#8986#8987#0" expanded="true" />
+            <element signature="e#9030#9031#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -371,9 +404,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -399,8 +430,22 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#PHPArrayIterator#0;class#PHPArray#0" expanded="false" />
-            <element signature="method#growAndRehashTable#0;class#PHPArray#0" expanded="false" />
+            <element signature="e#2884#2885#0" expanded="true" />
+            <element signature="e#2954#2955#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3050#3051#0" expanded="true" />
+            <element signature="e#3914#3915#0" expanded="true" />
+            <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4065#4066#0" expanded="true" />
+            <element signature="e#4113#4114#0" expanded="true" />
+            <element signature="e#6426#6427#0" expanded="true" />
+            <element signature="e#6457#6458#0" expanded="true" />
+            <element signature="e#7645#7646#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#8350#8351#0" expanded="true" />
+            <element signature="e#8397#8398#0" expanded="true" />
+            <element signature="e#8986#8987#0" expanded="true" />
+            <element signature="e#9030#9031#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -431,14 +476,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TestFile.java" />
-    <entry file="file://$PROJECT_DIR$/src/Assig2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4100">
-          <caret line="164" column="51" lean-forward="false" selection-start-line="164" selection-start-column="51" selection-end-line="164" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LinearProbingHashST.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -449,23 +486,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TestClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="275">
+          <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PHPArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="311" column="55" lean-forward="false" selection-start-line="311" selection-start-column="55" selection-end-line="311" selection-end-column="55" />
+        <state relative-caret-position="525">
+          <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#PHPArrayIterator#0;class#PHPArray#0" expanded="false" />
-            <element signature="method#growAndRehashTable#0;class#PHPArray#0" expanded="false" />
+            <element signature="e#2884#2885#0" expanded="true" />
+            <element signature="e#2954#2955#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3050#3051#0" expanded="true" />
+            <element signature="e#3914#3915#0" expanded="true" />
+            <element signature="e#3963#3964#0" expanded="true" />
+            <element signature="e#4065#4066#0" expanded="true" />
+            <element signature="e#4113#4114#0" expanded="true" />
+            <element signature="e#6426#6427#0" expanded="true" />
+            <element signature="e#6457#6458#0" expanded="true" />
+            <element signature="e#7645#7646#0" expanded="true" />
+            <element signature="e#7681#7682#0" expanded="true" />
+            <element signature="e#8350#8351#0" expanded="true" />
+            <element signature="e#8397#8398#0" expanded="true" />
+            <element signature="e#8986#8987#0" expanded="true" />
+            <element signature="e#9030#9031#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Assig2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="62" column="36" lean-forward="true" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
