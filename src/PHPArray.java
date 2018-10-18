@@ -5,26 +5,26 @@ import java.util.Iterator;
 // Note: This class does not guarantee that it will be iterated through in the order it was added
 // After a deletion, a portion of the table will be rehashed, and sent to the bottom of the underlying Linked List
 
-public class PHPArray <V> implements Iterable {
+public class PHPArray <V> implements Iterable <V> {
     // Use Nodes for the internal representation
     // Maps a String to a V
 
     // Use for iterator, to hold the data
-    public class Pair <T extends Comparable<T>> implements Comparable<Pair<T>> {
+    public static class Pair<V> implements Comparable<Pair<V>> {
         public String key;
         public V value;
         private Pair prev = null;
         private Pair next = null;
         private boolean inuse = true; // Will be set to false by the delete function. Once deleted, unrecoverable.
 
+        @Override
+        public int compareTo(Pair<V> pair) {
+            return ((Comparable)value).compareTo(((Comparable)pair.value));
+        }
+
         public Pair(String k, V d){
             key = k;
             value = d;
-        }
-
-        // I have absolutely no idea if this is going to work or not
-        public int compareTo(Pair<T> p){
-            return ((T)value).compareTo((T) p.getvalue());
         }
 
         private Pair getPrev() {return this.prev;}
@@ -45,16 +45,16 @@ public class PHPArray <V> implements Iterable {
         private void dropfromLL(){
             if(prev != null && next != null){
                 // Closes the hole
-                prev.next = next;
-                next.prev = prev;
+                ((Pair)prev).next = next;
+                ((Pair)next).prev = prev;
             }
             else if(prev != null){
                 // Deals with the tail
-                prev.next = null;
+                ((Pair)prev).next = null;
             }
             else if(next != null){
                 // Deals with the head
-                next.prev = null;
+                ((Pair)next).prev = null;
             }
             // Otherwise, there's nothing to be done
         }
@@ -68,7 +68,7 @@ public class PHPArray <V> implements Iterable {
 
     // Creating my own iterator
     public class PHPArrayIterator implements Iterator {
-        private PHPArray.Pair currPair;
+        private Pair currPair;
 
         public boolean hasNext(){
             return (currPair != null && currPair.getNext() != null);
@@ -177,7 +177,9 @@ public class PHPArray <V> implements Iterable {
         else{
             // Now we have to linearly address
             // We can guarantee we'll always find an empty spot
-            while(pairarray[index] != null && pairarray[index].isInuse()){
+            // Checks if it's filled, the pair is in use, and it's not the same key
+            // If it is the same key, overwrites the pair
+            while(pairarray[index] != null && pairarray[index].isInuse() && !pairarray[index].getKey().equals(myPair.getKey())){
                 index ++;
                 if(index == pairarray.length) index = 0;
             }
@@ -340,17 +342,42 @@ public class PHPArray <V> implements Iterable {
     // asort sorts, but preserving the keys... so I guess it sorts the linked list?
     public <T extends Comparable> void asort(){
         eachpair = head;
-        ArrayList<V> thepairs = new ArrayList<V>();
+        ArrayList<Pair<V>> thepairs = new ArrayList<Pair<V>>();
 
         // Grab all the nodes
         while(eachpair != null){
-            thepairs.add((V)eachpair.getvalue());
+            thepairs.add(eachpair);
         }
 
-        // Once again... we'll see what happens.
-        Collections.sort((ArrayList<T>)thepairs);
+        // Now we need to sort them
+        // Wow, that, like, actually works. Awesome.
+        Collections.sort(thepairs);
 
-        // So now we have a sorted array of data, but no way to get the original data
-        // So... questionable
+        for(Pair<V> thispair : thepairs){
+            put(thispair);
+        }
+
+        // And reset eachpair, and... we're clear and free!
+        eachpair = head;
+    }
+
+    // array_flip makes the values into keys and the keys into values. Not a mutator, returns a new Array
+    // Only works if V is of type String. Otherwise, we'll throw a ClassCast Exception
+    public PHPArray<String> array_flip(){
+        PHPArray<String> returner = new PHPArray<String>(pairarray.length);
+        Pair<V> save = eachpair;
+        eachpair = head;
+        Pair<V> mypair;
+
+        // Pairs overwrite each other in add, so the last non-unique one with Value 'v' will have key 'v' in the new array
+        while((mypair = each()) != null){
+            // Man, casting is just the worst. It hurts me to keep doing this.
+            Pair<V> newpair = new Pair<V>((String)mypair.getvalue(), (V)mypair.getKey());
+            returner.put(newpair);
+        }
+
+        // Resetting eachpair
+        eachpair = save;
+        return returner;
     }
 }
