@@ -74,9 +74,9 @@ public class PHPArray <V> implements Iterable <V> {
             return (currPair != null && currPair.getNext() != null);
         }
 
-        public Pair next(){
+        public V next(){
             currPair = currPair.getNext();
-            return currPair.getPrev();
+            return (V)currPair.getvalue();
         }
     }
 
@@ -87,12 +87,15 @@ public class PHPArray <V> implements Iterable <V> {
     PHPArray.Pair bottom = null; // The very last element added to the list
     float alpha = 0;
     Pair eachpair;
-    PHPArrayIterator theiterator;
 
     // To make the foreach signifier work
+    // Use a buffer head so that you can actually loop through all of the data
     public PHPArrayIterator iterator(){
-        theiterator.currPair = head;
-        return theiterator;
+        PHPArrayIterator it = new PHPArrayIterator();
+        Pair<V> itHead = new Pair<V>(null, null);
+        itHead.setNext(head);
+        it.currPair = itHead;
+        return it;
     }
 
     // Alpha is the load factor of the underlying hash map
@@ -107,13 +110,15 @@ public class PHPArray <V> implements Iterable <V> {
 
     // Used when the load factor gets too high. Transitions to a larger array.
     private void growAndRehashTable(){
-        System.out.println("Size: " + Integer.toString(items_in_list) + " -- resizing " +
+        System.out.println("\t\tSize: " + Integer.toString(items_in_list) + " -- resizing array " +
                 "from " + Integer.toString(pairarray.length) + " to " + Integer.toString(pairarray.length * 2 + 1));
         Pair[] newpairarray = new PHPArray.Pair[pairarray.length * 2 + 1];
         // Need to rehash all the members of pairarray
-        Pair myPair = head;
-        while(myPair != null){
-            int index = myPair.key.hashCode() % newpairarray.length;
+        Pair saved = eachpair;
+        eachpair = head;
+        Pair myPair;
+        while((myPair = each()) != null){
+            int index = Math.abs(myPair.key.hashCode()) % newpairarray.length;
             // While we see something real in the table, index forward
             while(newpairarray[index] != null && newpairarray[index].isInuse()){
                 index ++;
@@ -125,6 +130,7 @@ public class PHPArray <V> implements Iterable <V> {
         }
 
         pairarray = newpairarray;
+        eachpair = head;
     }
 
     // Puts a value into the array, calling put(String, data)
@@ -140,9 +146,19 @@ public class PHPArray <V> implements Iterable <V> {
     // Puts a value into the hashmap, using key as the key and datum as the... well
     public void put(String key, V datum){
         PHPArray.Pair myPair = new PHPArray.Pair(key, datum);
-        int index = Math.abs(key.hashCode()) % pairarray.length;
+        int index;
 
-        // First deal with plugging the new Pair into the linked list
+        // First need to recalculate alpha, and if it's too high, resize the table
+        calculateAlpha();
+        if(alpha > 0.5){
+            growAndRehashTable(); // Cause you know you have to
+            calculateAlpha(); // Just to be safe
+        }
+
+
+        index = Math.abs(key.hashCode()) % pairarray.length;
+
+        // After that, deal with plugging the new Pair into the linked list
         if(items_in_list == 0){
             head = myPair;
             bottom = myPair;
@@ -160,13 +176,6 @@ public class PHPArray <V> implements Iterable <V> {
             myPair.setPrev(bottom);
             bottom = myPair;
             items_in_list ++;
-        }
-
-        // Need to recalculate alpha, and if it's too high, resize the table
-        calculateAlpha();
-        if(alpha > 0.5){
-            growAndRehashTable(); // Cause you know you have to
-            calculateAlpha(); // Just to be safe
         }
 
         // Now to insert into the Pair array
@@ -241,10 +250,12 @@ public class PHPArray <V> implements Iterable <V> {
 
     // Prints out the underlying table. Good for encapsulation? No. Good for debugging? Probably.
     public void showTable(){
+        System.out.println("\tRaw Hash Table Contents:");
+
         for(int i = 0; i < pairarray.length; i ++){
             StringBuilder ln = new StringBuilder(Integer.toString(i) + ": ");
             Pair place = pairarray[i];
-            if(place == null){
+            if(place == null || !place.isInuse()){
                 ln.append("null");
             }
             else{
@@ -264,7 +275,10 @@ public class PHPArray <V> implements Iterable <V> {
 
     // Returns a Pair, looking for it inside the Array
     public V get(String key){
-        int index = key.hashCode() % pairarray.length;
+        int index = Math.abs(key.hashCode()) % pairarray.length;
+
+        System.out.println("Trying to GET with index: " + index);
+
         while(pairarray[index] != null){
             Pair mypair = pairarray[index];
             // Have to make sure it's the right node
@@ -272,6 +286,7 @@ public class PHPArray <V> implements Iterable <V> {
                 return (V)mypair.getvalue();
             }
             index ++;
+            if(index == pairarray.length) index = 0;
         }
         // If it's not in there, just return null
         return null;
@@ -286,7 +301,7 @@ public class PHPArray <V> implements Iterable <V> {
     public void unset(String key){
         // Just going to set it as not there inside the array, but gotta find it first
         // Don't have to rehash all below elements because we leave the object there
-        int index = key.hashCode() % pairarray.length;
+        int index = Math.abs(key.hashCode()) % pairarray.length;
         while(pairarray[index] != null){
             Pair mypair = pairarray[index];
 
