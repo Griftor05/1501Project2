@@ -10,7 +10,7 @@ public class PHPArray <V> implements Iterable {
     // Maps a String to a V
 
     // Use for iterator, to hold the data
-    public class Pair {
+    public class Pair <T extends Comparable<T>> implements Comparable<Pair<T>> {
         public String key;
         public V value;
         private Pair prev = null;
@@ -20,6 +20,11 @@ public class PHPArray <V> implements Iterable {
         public Pair(String k, V d){
             key = k;
             value = d;
+        }
+
+        // I have absolutely no idea if this is going to work or not
+        public int compareTo(Pair<T> p){
+            return ((T)value).compareTo((T) p.getvalue());
         }
 
         private Pair getPrev() {return this.prev;}
@@ -58,9 +63,10 @@ public class PHPArray <V> implements Iterable {
 
         public String getKey() {return key;}
         public V getvalue() {return value;}
+
     }
 
-    // Creating my own iterator?
+    // Creating my own iterator
     public class PHPArrayIterator implements Iterator {
         private PHPArray.Pair currPair;
 
@@ -179,22 +185,13 @@ public class PHPArray <V> implements Iterable {
         }
     }
 
-    // Like each, but works for pairs
-    private Pair eachPair(){
+    // each will return each pair in the linked list, by order added, reset will send it back to the head
+    public Pair each(){
         if(eachpair == null) return null;
         // Else
         Pair returner = eachpair;
         eachpair = eachpair.getNext();
         return returner;
-    }
-
-    // each will return each pair in the linked list, by order added, reset will send it back to the head
-    public V each(){
-        if(eachpair == null) return null;
-        // Else
-        Pair returner = eachpair;
-        eachpair = eachpair.getNext();
-        return (V)returner.getvalue();
     }
 
     // Resets the each() iterator to the head of the arraylist
@@ -209,7 +206,7 @@ public class PHPArray <V> implements Iterable {
         reset();
         ArrayList<V> returner = new ArrayList<V>();
         Pair curr;
-        while((curr = eachPair()) != null){
+        while((curr = each()) != null){
             // Y'know, this is the first time casting has ever felt like a really bad idea to me
             // Ah well. It works now, at least.
             returner.add((V)curr.getvalue());
@@ -226,7 +223,7 @@ public class PHPArray <V> implements Iterable {
         reset();
         ArrayList<String> returner = new ArrayList<String>();
         Pair curr;
-        while((curr = eachPair()) != null){
+        while((curr = each()) != null){
             returner.add(curr.getKey());
         }
         // Restore your each iterator, friend-o
@@ -312,8 +309,8 @@ public class PHPArray <V> implements Iterable {
 
     // Gonna pull all of the objects out and sort the list
     // Creating a generic type that is also Comparable for... nefarious purposes
+    //    In terms of analysis, the sort is nlogn, and the grabbing and putting are both N, so it's overall O(nlogn)
     public <T extends Comparable> void sort(){
-        Pair save = eachpair;
         eachpair = head;
         ArrayList<V> thepairs = new ArrayList<V>();
 
@@ -332,6 +329,7 @@ public class PHPArray <V> implements Iterable {
         int i = 0;
         for(V thisT : thepairs){
             put(i, thisT);
+            i++;
         }
 
         // Should be good!
@@ -339,5 +337,20 @@ public class PHPArray <V> implements Iterable {
         eachpair = head;
     }
 
+    // asort sorts, but preserving the keys... so I guess it sorts the linked list?
+    public <T extends Comparable> void asort(){
+        eachpair = head;
+        ArrayList<V> thepairs = new ArrayList<V>();
 
+        // Grab all the nodes
+        while(eachpair != null){
+            thepairs.add((V)eachpair.getvalue());
+        }
+
+        // Once again... we'll see what happens.
+        Collections.sort((ArrayList<T>)thepairs);
+
+        // So now we have a sorted array of data, but no way to get the original data
+        // So... questionable
+    }
 }
