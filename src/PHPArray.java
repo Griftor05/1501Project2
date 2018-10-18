@@ -300,7 +300,7 @@ public class PHPArray<V> implements Iterable<V> {
     }
 
     // Gonna pull all of the objects out and sort the list
-    public void sort(){
+    public <V extends Comparable<V>> void sort(){
         Pair save = eachpair;
         eachpair = head;
         ArrayList<V> thepairs = new ArrayList<V>();
@@ -309,12 +309,10 @@ public class PHPArray<V> implements Iterable<V> {
             thepairs.add((V)eachpair.getvalue());
         }
 
-        Class<V> type;
-        Class<Comparable> ctype;
+        // Hopefully V is Comparable, and if it isn't... well.
+        Collections.sort(thepairs);
 
-        if(ctype.isInstance(type)){
 
-        }
 
     }
 }
