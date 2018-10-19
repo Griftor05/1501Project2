@@ -18,8 +18,14 @@ public class PHPArray <V> implements Iterable <V> {
         private boolean inuse = true; // Will be set to false by the delete function. Once deleted, unrecoverable.
 
         @Override
+        public String toString(){
+            return "Key: " + key + " Value: " + value;
+        }
+
+        @Override
         public int compareTo(Pair<V> pair) {
-            return ((Comparable)value).compareTo(((Comparable)pair.value));
+            int returner = ((Comparable)value).compareTo(((Comparable)pair.value));
+            return returner;
         }
 
         public Pair(String k, V d){
@@ -40,30 +46,31 @@ public class PHPArray <V> implements Iterable <V> {
 
         private void decomission(){inuse = false;}
 
-
-        // Allows the node to just slip out of the array, closing the hole behind it
-        private void dropfromLL(){
-            if(prev != null && next != null){
-                // Closes the hole
-                ((Pair)prev).next = next;
-                ((Pair)next).prev = prev;
-            }
-            else if(prev != null){
-                // Deals with the tail
-                ((Pair)prev).next = null;
-            }
-            else if(next != null){
-                // Deals with the head
-                ((Pair)next).prev = null;
-            }
-            // Otherwise, there's nothing to be done
-        }
-
         private boolean isInuse() {return inuse;}
 
         public String getKey() {return key;}
         public V getvalue() {return value;}
 
+    }
+
+    // Allows the node to just slip out of the array, closing the hole behind it
+    private void dropfromLL(Pair p){
+        if(p.prev != null && p.next != null){
+            // Closes the hole
+            p.prev.setNext(p.next);
+            p.next.setPrev(p.prev);
+        }
+        else if(p.prev != null){
+            // Deals with the tail
+            p.prev.setNext(null);
+            bottom = p.prev;
+        }
+        else if(p.next != null){
+            // Deals with the head
+            p.next.setPrev(null);
+            head = p.next;
+        }
+        // Otherwise it's just a lonely node
     }
 
     // Creating my own iterator
@@ -180,6 +187,10 @@ public class PHPArray <V> implements Iterable <V> {
         // Now to insert into the Pair array
         // But also, linear probing
         if(pairarray[index] == null || !pairarray[index].isInuse()){
+            if(pairarray[index] != null){
+                dropfromLL(pairarray[index]);
+                // Don't need to unlink
+            }
             // Sweet! No hashing needed
             pairarray[index] = myPair;
         }
@@ -192,7 +203,25 @@ public class PHPArray <V> implements Iterable <V> {
                 index ++;
                 if(index == pairarray.length) index = 0;
             }
+            if(pairarray[index] != null && pairarray[index].getKey().equals(key)) dropfromLL(pairarray[index]);
             pairarray[index] = myPair;
+        }
+
+        // So then the issue is what happens when you insert something and its spot was empty though not when you
+        //      hashed the previous value with the same key. In other words - delete any node after this that has the
+        //      same key
+        index ++;
+        if(index == pairarray.length) index = 0;
+        while(pairarray[index] != null){
+            if(pairarray[index].getKey().equals(key)){
+                if(index == 0) head = pairarray[index].getNext();
+                System.out.println("Tried to remove key: " + key + " from index: " + index);
+                dropfromLL(pairarray[index]);
+                pairarray[index].decomission();
+                return;
+            }
+            index ++;
+            if(index == pairarray.length) index = 0;
         }
     }
 
@@ -304,7 +333,7 @@ public class PHPArray <V> implements Iterable <V> {
 
             // If we found it, we kill it
             if(mypair.getKey().equals(key) && mypair.isInuse()){
-                mypair.dropfromLL(); // Remove it from the Linked List (Steal Away)
+                dropfromLL(mypair); // Remove it from the Linked List (Steal Away)
                 mypair.decomission(); // Now it's dead
                 if(head == mypair){
                     // have to move it down
@@ -326,12 +355,14 @@ public class PHPArray <V> implements Iterable <V> {
     // Creating a generic type that is also Comparable for... nefarious purposes
     //    In terms of analysis, the sort is nlogn, and the grabbing and putting are both N, so it's overall O(nlogn)
     public <T extends Comparable> void sort(){
+
         eachpair = head;
         ArrayList<V> thepairs = new ArrayList<V>();
 
         // Grabs all the nodes
         while(eachpair != null){
             thepairs.add((V)eachpair.getvalue());
+            eachpair = eachpair.getNext();
         }
 
         // This is the single worst line of code I've written in my life. I despise its existence.
@@ -340,8 +371,11 @@ public class PHPArray <V> implements Iterable <V> {
         // And now add all of them as new Pairs back into the array list, resetting it
         head = null;
         bottom = null;
+        items_in_list = 0;
+
         pairarray = new PHPArray.Pair[pairarray.length];
         int i = 0;
+
         for(V thisT : thepairs){
             put(i, thisT);
             i++;
@@ -353,6 +387,7 @@ public class PHPArray <V> implements Iterable <V> {
     }
 
     // asort sorts, but preserving the keys... so I guess it sorts the linked list?
+    // It does, Sherif mentioned it in class
     public <T extends Comparable> void asort(){
         eachpair = head;
         ArrayList<Pair<V>> thepairs = new ArrayList<Pair<V>>();
@@ -360,14 +395,22 @@ public class PHPArray <V> implements Iterable <V> {
         // Grab all the nodes
         while(eachpair != null){
             thepairs.add(eachpair);
+            eachpair = eachpair.getNext();
         }
 
         // Now we need to sort them
         // Wow, that, like, actually works. Awesome.
         Collections.sort(thepairs);
 
-        for(Pair<V> thispair : thepairs){
-            put(thispair);
+        // And now add all of them as new Pairs back into the array list, resetting it
+        head = null;
+        bottom = null;
+        items_in_list = 0;
+        pairarray = new Pair[pairarray.length];
+
+        for(int i = 0; i < thepairs.size(); i++){
+            Pair thispair = thepairs.get(i);
+            put(thispair.getKey(), (V)thispair.getvalue());
         }
 
         // And reset eachpair, and... we're clear and free!
@@ -392,5 +435,17 @@ public class PHPArray <V> implements Iterable <V> {
         // Resetting eachpair
         eachpair = save;
         return returner;
+    }
+
+    public void printLinked(){
+        Pair save = eachpair;
+        eachpair = head;
+
+        Pair thispair;
+        while((thispair = each()) != null){
+            System.out.println("The next Node has key: " + thispair.getKey() + " and value " + thispair.getvalue());
+        }
+
+        eachpair = save;
     }
 }

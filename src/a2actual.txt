@@ -142,15 +142,14 @@ Zany is not found
 29: Key: Wacky Value: 100
 30: Key: Craziness Value: 80
 
+Tried to remove key: Wacky from index: 29
 	Demonstrating put() to replace value for existing key
 	Updating keys 'Wacky' and 'Craziness' with new values
-Key: Wacky Value: 100
 Key: Hilarious Value: 40
 Key: Fun Value: 50
 Key: 0 Value: 1
 Key: 1 Value: 2
 Key: More Value: 75
-Key: Craziness Value: 80
 Key: Here Value: 30
 Key: 5 Value: 4
 Key: 6 Value: 5
@@ -158,36 +157,166 @@ Key: 7 Value: 6
 Key: Wacky Value: 111
 Key: Craziness Value: 222
 
+	Sorting the data
+Key: 0 Value: 1
+Key: 1 Value: 2
+Key: 2 Value: 4
+Key: 3 Value: 5
+Key: 4 Value: 6
+Key: 5 Value: 30
+Key: 6 Value: 40
+Key: 7 Value: 50
+Key: 8 Value: 75
+Key: 9 Value: 111
+Key: 10 Value: 222
+
+	Printing out via int indices:
+A[0] = 1
+A[1] = 2
+A[2] = 4
+A[3] = 5
+A[4] = 6
+A[5] = 30
+A[6] = 40
+A[7] = 50
+A[8] = 75
+A[9] = 111
+A[10] = 222
+
+	Using a different base type
+		Size: 3 -- resizing array from 4 to 9
+		Size: 5 -- resizing array from 9 to 19
+Key: Elwes Value: Westley
+Key: Patinkin Value: Inigo
+Key: Wright Value: Buttercup
+Key: Shawn Value: Vizzini
+Key: Sarandon Value: Humperdinck
+Key: Andre Value: Fezzik
+Key: Guest Value: Rugen
+Key: Crystal Value: Max
+
+	Sorting with preservation of keys
+Key: Wright Value: Buttercup
+Key: Andre Value: Fezzik
+Key: Sarandon Value: Humperdinck
+Key: Patinkin Value: Inigo
+Key: Crystal Value: Max
+Key: Guest Value: Rugen
+Key: Shawn Value: Vizzini
+Key: Elwes Value: Westley
+
+Note that hash table order is still pseudo-random:
 	Raw Hash Table Contents:
 0: null
 1: null
-2: null
+2: Key: Patinkin Value: Inigo
 3: null
-4: Key: Hilarious Value: 40
-5: null
+4: Key: Guest Value: Rugen
+5: Key: Shawn Value: Vizzini
 6: null
-7: null
-8: Key: More Value: 75
-9: Key: Here Value: 30
+7: Key: Andre Value: Fezzik
+8: Key: Sarandon Value: Humperdinck
+9: Key: Elwes Value: Westley
 10: null
-11: null
+11: Key: Crystal Value: Max
 12: null
 13: null
 14: null
-15: null
+15: Key: Wright Value: Buttercup
 16: null
-17: Key: Fun Value: 50
-18: Key: 0 Value: 1
-19: Key: 1 Value: 2
-20: null
-21: null
-22: Key: 5 Value: 4
-23: null
-24: Key: 6 Value: 5
-25: Key: 7 Value: 6
-26: null
-27: null
-28: Key: Wacky Value: 111
-29: Key: Wacky Value: 100
-30: Key: Craziness Value: 222
-	Sorting the data
+17: null
+18: null
+
+	Showing values only:
+Next item is Buttercup
+Next item is Fezzik
+Next item is Humperdinck
+Next item is Inigo
+Next item is Max
+Next item is Rugen
+Next item is Vizzini
+Next item is Westley
+
+		Size: 3 -- resizing array from 4 to 9
+		Size: 5 -- resizing array from 9 to 19
+PHPArray of <String, StringBuilder>
+Key: Wright Value: Buttercup
+Key: Andre Value: Fezzik
+Key: Sarandon Value: Humperdinck
+Key: Patinkin Value: Inigo
+Key: Crystal Value: Max
+Key: Guest Value: Rugen
+Key: Shawn Value: Vizzini
+Key: Elwes Value: Westley
+
+Trying to sort PHPArray of StringBuilder
+PHPArray values are not Comparable -- cannot be sorted
+
+	Using iterator manually:
+Next item is Buttercup
+Next item is Fezzik
+Next item is Humperdinck
+Next item is Inigo
+Next item is Max
+Next item is Rugen
+Next item is Vizzini
+Next item is Westley
+
+	Adding some keys with the same values
+		Size: 10 -- resizing array from 19 to 39
+
+	Testing the array_flip() method, transposing keys and values
+	Original data:
+Key: Wright Value: Buttercup
+Key: Andre Value: Fezzik
+Key: Sarandon Value: Humperdinck
+Key: Patinkin Value: Inigo
+Key: Crystal Value: Max
+Key: Guest Value: Rugen
+Key: Shawn Value: Vizzini
+Key: Elwes Value: Westley
+Key: Keaton Value: Batman
+Key: Kilmer Value: Batman
+Key: Bale Value: Batman
+
+	Flipped data:
+Key: Buttercup Value: Wright
+Key: Fezzik Value: Andre
+Key: Humperdinck Value: Sarandon
+Key: Inigo Value: Patinkin
+Key: Max Value: Crystal
+Key: Rugen Value: Guest
+Key: Vizzini Value: Shawn
+Key: Westley Value: Elwes
+Key: Batman Value: Bale
+
+	Non-flippable array
+java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+
+	Demonstrating forEach construct
+1^2 = 1
+2^2 = 4
+4^2 = 16
+5^2 = 25
+6^2 = 36
+30^2 = 900
+40^2 = 1600
+50^2 = 2500
+75^2 = 5625
+111^2 = 12321
+222^2 = 49284
+
+Buttercup contains er
+Humperdinck contains er
+
+Humperdinck contains in
+Vizzini contains in
+
+Buttercup-inconceivable!
+Fezzik-inconceivable!
+Humperdinck-inconceivable!
+Inigo-inconceivable!
+Max-inconceivable!
+Rugen-inconceivable!
+Vizzini-inconceivable!
+Westley-inconceivable!

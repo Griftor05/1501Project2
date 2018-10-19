@@ -157,9 +157,6 @@ public class Assig2
 		}
 		System.out.println();
 
-		// DON'T FORGET TO DELETE THIS
-		A.showTable();
-
 		
 		// The regular sort method should do the following:
 		// 	- Sort the values using the Comparable interface (if the data is not
