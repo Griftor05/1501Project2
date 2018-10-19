@@ -72,41 +72,24 @@ The values are:
 30: Key: Craziness Value: 80
 
 	Looking up some keys:
-Trying to GET with index: 23
 Key: Hashing has value 10
-Trying to GET with index: 19
 Key: 2 has value 3
-Trying to GET with index: 20
 Key: Weasel is not found
 
 	Iterating using traditional for loop
-Trying to GET with index: 17
 A[0] = 1
-Trying to GET with index: 18
 A[1] = 2
-Trying to GET with index: 19
 A[2] = 3
-Trying to GET with index: 20
 A[3] = null
-Trying to GET with index: 21
 A[4] = null
-Trying to GET with index: 22
 A[5] = 4
-Trying to GET with index: 23
 A[6] = 5
-Trying to GET with index: 24
 A[7] = 6
-Trying to GET with index: 25
 A[8] = null
-Trying to GET with index: 26
 A[9] = null
-Trying to GET with index: 17
 A[10] = null
-Trying to GET with index: 18
 A[11] = null
-Trying to GET with index: 19
 A[12] = null
-Trying to GET with index: 20
 A[13] = null
 
 	Deleting keys 'Hashing', 'Zany' and 2
@@ -122,11 +105,8 @@ Key: 5 Value: 4
 Key: 6 Value: 5
 Key: 7 Value: 6
 
-Trying to GET with index: 23
 Hashing is not found
-Trying to GET with index: 28
 Zany is not found
-Trying to GET with index: 19
 2 is not found
 
 	Raw Hash Table Contents:
@@ -178,4 +158,36 @@ Key: 7 Value: 6
 Key: Wacky Value: 111
 Key: Craziness Value: 222
 
+	Raw Hash Table Contents:
+0: null
+1: null
+2: null
+3: null
+4: Key: Hilarious Value: 40
+5: null
+6: null
+7: null
+8: Key: More Value: 75
+9: Key: Here Value: 30
+10: null
+11: null
+12: null
+13: null
+14: null
+15: null
+16: null
+17: Key: Fun Value: 50
+18: Key: 0 Value: 1
+19: Key: 1 Value: 2
+20: null
+21: null
+22: Key: 5 Value: 4
+23: null
+24: Key: 6 Value: 5
+25: Key: 7 Value: 6
+26: null
+27: null
+28: Key: Wacky Value: 111
+29: Key: Wacky Value: 100
+30: Key: Craziness Value: 222
 	Sorting the data

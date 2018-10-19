@@ -155,7 +155,6 @@ public class PHPArray <V> implements Iterable <V> {
             calculateAlpha(); // Just to be safe
         }
 
-
         index = Math.abs(key.hashCode()) % pairarray.length;
 
         // After that, deal with plugging the new Pair into the linked list
@@ -276,8 +275,6 @@ public class PHPArray <V> implements Iterable <V> {
     // Returns a Pair, looking for it inside the Array
     public V get(String key){
         int index = Math.abs(key.hashCode()) % pairarray.length;
-
-        System.out.println("Trying to GET with index: " + index);
 
         while(pairarray[index] != null){
             Pair mypair = pairarray[index];
